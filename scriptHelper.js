@@ -18,12 +18,41 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  }
  
  function validateInput(testInput) {
-    
+    if (testInput === '') {
+        return 'Empty';
+    } else if (isNaN(testInput)) {
+        return 'Not a Number';
+    } else {
+        return 'Is a Number';
+    }
  }
  
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-    
- }
+    document.getElementById('pilotStatus').innerHTML = `Pilot ${pilot} is ready for launch`;
+    document.getElementById('copilotStatus').innerHTML = `Co-pilot ${copilot} is ready for launch`;
+    let launchStatus = document.getElementById('launchStatus');
+    let fuelStatus = document.getElementById('fuelStatus');
+    let cargoStatus = document.getElementById('cargoStatus');
+    let ready = true;
+
+    if (Number(fuelLevel < 10000)) {
+        list.style.visibility = 'visible';
+        launchStatus.style.color = 'red';
+        launchStatus.innerHTML = 'Shuttle not ready for launch';
+        fuelStatus.innerHTML = 'Fuel level too low for launch';
+        ready = false;
+    }
+    if (Number(cargoLevel > 10000)) {
+        list.style.visibility = 'visible';
+        launchStatus.style.color = 'red';
+        launchStatus.innerHTML = 'Shuttle not ready for launch';
+        cargoStatus.innerHTML = 'Cargo mass too heavy for launch';
+        ready = false;
+    }
+    if (ready) {
+        launchStatus.innerHTML = 'Shuttle is ready for launch';
+        launchStatus.style.color = 'green';
+    }
  
  async function myFetch() {
      let planetsReturned;
