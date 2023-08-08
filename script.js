@@ -7,36 +7,36 @@ window.addEventListener("load", function() {
     let form = document.querySelector('form');
 
     form.addEventListener('submit', function(event) {
-        // event.preventDefault();
+        event.preventDefault();
         let list = document.getElementById("faultyItems");
-        let pilot = document.querySelector('input[name=pilotName]');
-        let copilot = document.querySelector('input[name=copilotName]');
-        let fuelLevel = document.querySelector('input[name=fuelLevel]');
-        let cargoMass = document.querySelector('input[name=cargoMass]');
+        let pilot = document.querySelector('input[name=pilotName]').value;
+        let copilot = document.querySelector('input[name=copilotName]').value;
+        let fuelLevel = document.querySelector('input[name=fuelLevel]').value;
+        let cargoMass = document.querySelector('input[name=cargoMass]').value;
         let alertMsg = 'All fields are required.';
         let pass = true;
-        if (validateInput(pilot.value) !== 'Not a Number') {
+        if (validateInput(pilot) !== 'Not a Number') {
             alertMsg += '\npilot must contain alpha characters.'
             pass = false;
         }
-        if (validateInput(copilot.value) !== 'Not a Number') {
+        if (validateInput(copilot) !== 'Not a Number') {
             alertMsg += '\nco-pilot must contain alpha characters.'
             pass = false;
         }
-        if (validateInput(fuelLevel.value) !== 'Is a Number') {
+        if (validateInput(fuelLevel) !== 'Is a Number') {
             alertMsg += '\nfuel level must be a number.'
             pass = false;
         }
-        if (validateInput(cargoMass.value) !== 'Is a Number') {
+        if (validateInput(cargoMass) !== 'Is a Number') {
             alertMsg += '\ncargo mass must be a number.'
             pass = false;
         }
         if (pass) {
             formSubmission(document,list,pilot,copilot,fuelLevel,cargoMass);
-            event.preventDefault();
+            // event.preventDefault();
         } else {
             alert(alertMsg);
-            event.preventDefault();
+            // event.preventDefault();
         }
         
     });
@@ -51,7 +51,8 @@ window.addEventListener("load", function() {
         console.log(listedPlanets);
         // Below this comment call the appropriate helper functions to pick a planet fom the list of planets and add that information to your destination.
         let planet = pickPlanet(listedPlanets);
-        addDestinationInfo(document, planet[0], planet[1], planet[2], planet[3], planet[5], planet[4]);
+        addDestinationInfo(document, planet.name, planet.diameter, planet.star, planet.distance,
+            planet.moons, planet.image);
     })
     
  });
